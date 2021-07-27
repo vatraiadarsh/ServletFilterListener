@@ -9,6 +9,7 @@ import com.ada.webapp.controller.Controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +21,19 @@ import javax.servlet.http.Part;
  *
  * @author vatra
  */
-@WebServlet(name = "upload",urlPatterns = {"/admin/uploads/*"})
+@WebServlet(name = "download",urlPatterns = {"/admin/download/*"})
 @MultipartConfig()
 
-public class UploadController extends Controller {
+public class DownloadController extends Controller {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-          req.getRequestDispatcher("/WEB-INF/views/upload.jsp").forward(req, resp);
+          PrintWriter out = resp.getWriter();
+          resp.setHeader("Content-Type", "application/force-download");
+          resp.setHeader("Content-Disposition", "attachment; filename=myfile.txt");
+          for (int i = 0; i < 10; i++) {
+            out.println(i+"\r\n");
+        }
     }
 
     @Override
