@@ -24,11 +24,11 @@
         <form method="post" action=""> 
             <div>
                 <label>User Name</label>
-                <input type="text" name="username"/>
+                <input type="text" value="admin" name="username"/>
             </div>
             <div>
                 <label> Password</label>
-                <input type="password" name="password"/>
+                <input type="password" value="admin" name="password"/>
             </div>
             <button type="submit">Login </button>
         </form>
