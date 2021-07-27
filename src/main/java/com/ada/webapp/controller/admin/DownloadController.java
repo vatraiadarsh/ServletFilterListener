@@ -6,6 +6,7 @@
 package com.ada.webapp.controller.admin;
 
 import com.ada.webapp.controller.Controller;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,19 +22,24 @@ import javax.servlet.http.Part;
  *
  * @author vatra
  */
-@WebServlet(name = "download",urlPatterns = {"/admin/download/*"})
+@WebServlet(name = "download", urlPatterns = {"/admin/download/*"})
 @MultipartConfig()
 
 public class DownloadController extends Controller {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-          PrintWriter out = resp.getWriter();
-          resp.setHeader("Content-Type", "application/force-download");
-          resp.setHeader("Content-Disposition", "attachment; filename=myfile.txt");
-          for (int i = 0; i < 10; i++) {
-            out.println(i+"\r\n");
+
+        String path = "C:\\Users\\vatra\\Desktop\\java\\ServletFilterListener\\src\\main\\webapp\\uploads\\";
+
+        resp.setHeader("Content-Type", "image/jpg");
+        InputStream is = new FileInputStream(path + "kitten.jpg");
+        int i = 0;
+        byte[] data = new byte[1024];
+        while ((i = is.read(data)) != -1) {
+            resp.getOutputStream().write(data, 0, i);
         }
+        is.close();
     }
 
     @Override
